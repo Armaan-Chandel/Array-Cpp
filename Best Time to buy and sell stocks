@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int rec(vector<int>& arr,int l,int r){
+        int ans=0;
+           if(l<r){
+           int mid=l+(r-l)/2;
+           int mn=INT_MAX;
+           int mx=INT_MIN;
+           for(int i=0;i<=mid;i++){
+            mn=min(arr[i],mn);
+           }
+           for(int i=mid;i<arr.size();i++){
+            mx=max(arr[i],mx);
+           }
+           int left=rec(arr,l,mid);
+           int right=rec(arr,mid+1,r);
+           if(r-l<0){
+            return 0;
+           }
+           ans=max(left,max(mx-mn,right));
+          // return max(left,max(mx-mn,right));  
+        }
+        return ans;
+
+    }
+    int maxProfit(vector<int>& arr) {
+        int l=0;
+        if(arr.size()==1){
+            return 0;
+        }
+        //int r=arr.size()-1;
+        int mx=INT_MIN;
+        int r=1;
+        while(r!=arr.size()){
+            if(arr[r]>=arr[l]){
+                mx=max(mx,arr[r]-arr[l]);
+                r++;
+            }
+            else{
+                l++;
+            }
+        }
+        return mx;
+    }
+};
