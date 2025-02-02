@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maxArea(vector<int>& arr) {
+    int l=0;
+    int r=arr.size()-1;
+    int mx=0;
+    while(l<r){
+        mx=max(mx,(min(arr[r],arr[l])*(r-l)));
+        if(arr[l]<arr[r]){
+            l++;
+        }
+        else if(arr[l]>arr[r]){
+            r--;
+        }
+        else{
+            r--;
+            l++;
+        }
+    }
+    return mx;
+    }
+};
