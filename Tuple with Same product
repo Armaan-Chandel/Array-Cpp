@@ -1,0 +1,28 @@
+class Solution {
+public:
+        
+    int tupleSameProduct(vector<int>& nums) {
+        vector<int> mp;
+        int count=0;
+        unordered_map<int,int> ap;
+        for(int i=0;i<nums.size()-1;i++){
+            for(int j=i+1;j<nums.size();j++){
+                  mp.push_back(nums[i]*nums[j]);
+            }
+        }
+        for(int i=0;i<mp.size();i++){
+                ap[mp[i]]++;
+        }
+        for(auto it:ap){
+            if(it.second==2){
+                count+=1;
+            }
+            if(it.second>2){
+                cout<<it.first<<" = "<<it.second<<endl;
+                count+=((it.second)*(it.second-1))/2;       
+            }    
+        }
+        return count*8;
+
+    }
+};
