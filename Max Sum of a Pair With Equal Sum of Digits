@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int sum(int a){
+        int s=0;
+        while(a!=0){
+            int r=a%10;
+            a=a/10;
+            s+=r;
+        }
+        return s;
+    }
+    int maximumSum(vector<int>& nums) {
+        unordered_map<int,pair<int,int>> mp;
+        int mx=0;
+        bool flag=false;
+        for(int i=0;i<nums.size();i++){
+            int s=sum(nums[i]);
+            if(mp.find(s)!=mp.end()){
+                if(mp[s].second==-1){
+                    flag=true;
+                    mp[s].second=nums[i];
+                    mx=max(mx,mp[s].first+mp[s].second);
+                }
+                else{
+                    if(mp[s].first>=mp[s].second and nums[i]>mp[s].second){
+                        mp[s].second=nums[i];
+                        mx=max(mx,mp[s].second+mp[s].first);
+                    }
+                    else if(mp[s].second>=mp[s].first and nums[i]>mp[s].first){
+                        mp[s].first=nums[i];
+                        mx=max(mx,mp[s].second+mp[s].first);
+                    }
+                }
+            }
+            else{
+                mp[s].first=nums[i];
+                mp[s].second=-1;
+            }
+        }
+        if(!flag){
+            return -1;
+        }
+        return mx;
+    }
+};
