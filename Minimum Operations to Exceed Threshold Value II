@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minOperations(vector<int>& arr, int k) {
+        int l=0;
+        multiset<long long> s;
+        for(int i=0;i<arr.size();i++){
+            s.insert(arr[i]);
+        }
+        if(*s.begin()>=k){
+            return 0;
+        }
+        int count=0;
+        while(s.size()>=2 and *s.begin()<k){
+            long long a=*s.begin();
+            s.erase(s.begin());
+            long long b=*s.begin();
+            s.erase(s.begin());
+            long long c=min(a,b)*2+max(a,b);
+            cout <<c<<" ";
+            s.insert(c);
+            count++;
+        }
+        return count;
+    }
+};
